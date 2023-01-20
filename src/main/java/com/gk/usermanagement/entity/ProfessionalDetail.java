@@ -8,8 +8,7 @@ public class ProfessionalDetail {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "professional_detail_id")
-    private Long id;
-
+    private String employeeCode;
     private Integer blockNumber;
     private String companyName;
     private String location;
@@ -21,8 +20,8 @@ public class ProfessionalDetail {
     public ProfessionalDetail() {
     }
 
-    public ProfessionalDetail(Long id, Integer blockNumber, String companyName, String location, String isActive, User user) {
-        this.id = id;
+    public ProfessionalDetail(String employeeCode, Integer blockNumber, String companyName, String location, String isActive, User user) {
+        this.employeeCode = employeeCode;
         this.blockNumber = blockNumber;
         this.companyName = companyName;
         this.location = location;
@@ -30,12 +29,12 @@ public class ProfessionalDetail {
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
+    public String getEmployeeCode() {
+        return employeeCode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
     }
 
     public Integer getBlockNumber() {

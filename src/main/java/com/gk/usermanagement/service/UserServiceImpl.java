@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserService {
         List<ProfessionalDetail> professionalDetails=new ArrayList<>();
         for(ProfessionalDetailsDTO professionalDetailsDTO :requestDTO.getProfessionalDetailsDTOS()){
             ProfessionalDetail professionalDetail=new ProfessionalDetail();
+            professionalDetail.setEmployeeCode(professionalDetailsDTO.getEmployeeCode());
             professionalDetail.setBlockNumber(professionalDetailsDTO.getBlockNumber());
             professionalDetail.setCompanyName(professionalDetailsDTO.getCompanyName());
             professionalDetail.setLocation(professionalDetailsDTO.getLocation());
@@ -155,6 +156,7 @@ public class UserServiceImpl implements UserService {
         List<ProfessionalDetailsDTO> professionalDetailsDTOS=new ArrayList<>();
         for(ProfessionalDetail professionalDetail:savedProfessionalDetails){
             ProfessionalDetailsDTO professionalDetailsDTO=new ProfessionalDetailsDTO();
+            professionalDetailsDTO.setEmployeeCode(professionalDetail.getEmployeeCode());
             professionalDetailsDTO.setBlockNumber(professionalDetail.getBlockNumber());
             professionalDetailsDTO.setCompanyName(professionalDetail.getCompanyName());
             professionalDetailsDTO.setLocation(professionalDetail.getLocation());
@@ -211,6 +213,7 @@ public class UserServiceImpl implements UserService {
         List<ProfessionalDetailsDTO> professionalDetailsDTOS=new ArrayList<>();
         for(ProfessionalDetail professionalDetail:user.getProfessionalDetails()){
             ProfessionalDetailsDTO professionalDetailsDTO=new ProfessionalDetailsDTO();
+            professionalDetailsDTO.setEmployeeCode(professionalDetail.getEmployeeCode());
             professionalDetailsDTO.setBlockNumber(professionalDetail.getBlockNumber());
             professionalDetailsDTO.setLocation(professionalDetail.getLocation());
             professionalDetailsDTO.setCompanyName(professionalDetail.getCompanyName());
