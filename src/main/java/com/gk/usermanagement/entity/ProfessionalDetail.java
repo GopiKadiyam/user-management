@@ -9,6 +9,7 @@ public class ProfessionalDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "professional_detail_id")
     private Long id;
+
     private String employeeCode;
     private Integer blockNumber;
     private String companyName;
