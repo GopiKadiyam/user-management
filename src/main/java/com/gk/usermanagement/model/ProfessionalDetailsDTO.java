@@ -1,7 +1,7 @@
 package com.gk.usermanagement.model;
 
 public class ProfessionalDetailsDTO {
-    private Long id;
+    private String employeeCode;
     private Integer blockNumber;
     private String companyName;
     private String location;
@@ -10,20 +10,20 @@ public class ProfessionalDetailsDTO {
     public ProfessionalDetailsDTO() {
     }
 
-    public ProfessionalDetailsDTO(Long id, Integer blockNumber, String companyName, String location, String isActive) {
-        this.id = id;
+    public ProfessionalDetailsDTO(String employeeCode, Integer blockNumber, String companyName, String location, String isActive) {
+        this.employeeCode = employeeCode;
         this.blockNumber = blockNumber;
         this.companyName = companyName;
         this.location = location;
         this.isActive = isActive;
     }
 
-    public Long getId() {
-        return id;
+    public String getEmployeeCode() {
+        return employeeCode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
     }
 
     public Integer getBlockNumber() {

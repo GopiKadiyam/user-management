@@ -4,7 +4,6 @@ import com.gk.usermanagement.model.CreateUserRequestDTO;
 import com.gk.usermanagement.model.CreateUserResponseDTO;
 import com.gk.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
