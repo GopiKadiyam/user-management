@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class ProfessionalDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "professional_detail_id")
     private Long id;
     private String employeeCode;
     private Integer blockNumber;
@@ -22,14 +21,14 @@ public class ProfessionalDetail {
     public ProfessionalDetail() {
     }
 
-    public ProfessionalDetail(Long id, String employeeCode, Integer blockNumber, String companyName, String location, String isActive,Long salary, User user) {
+    public ProfessionalDetail(Long id, String employeeCode, Integer blockNumber, String companyName, String location, String isActive, Long salary, User user) {
         this.id = id;
         this.employeeCode = employeeCode;
         this.blockNumber = blockNumber;
         this.companyName = companyName;
         this.location = location;
         this.isActive = isActive;
-        this.salary=salary;
+        this.salary = salary;
         this.user = user;
     }
 
