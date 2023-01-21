@@ -14,6 +14,7 @@ public class ProfessionalDetail {
     private String companyName;
     private String location;
     private String isActive;
+    private Long salary;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -21,13 +22,14 @@ public class ProfessionalDetail {
     public ProfessionalDetail() {
     }
 
-    public ProfessionalDetail(Long id, String employeeCode, Integer blockNumber, String companyName, String location, String isActive, User user) {
+    public ProfessionalDetail(Long id, String employeeCode, Integer blockNumber, String companyName, String location, String isActive,Long salary, User user) {
         this.id = id;
         this.employeeCode = employeeCode;
         this.blockNumber = blockNumber;
         this.companyName = companyName;
         this.location = location;
         this.isActive = isActive;
+        this.salary=salary;
         this.user = user;
     }
 
@@ -77,6 +79,14 @@ public class ProfessionalDetail {
 
     public void setIsActive(String isActive) {
         this.isActive = isActive;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
     }
 
     public User getUser() {

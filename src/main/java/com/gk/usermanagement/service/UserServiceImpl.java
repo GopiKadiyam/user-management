@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
             professionalDetail.setCompanyName(professionalDetailsDTO.getCompanyName());
             professionalDetail.setLocation(professionalDetailsDTO.getLocation());
             professionalDetail.setIsActive(professionalDetailsDTO.getIsActive());
+            professionalDetail.setSalary(professionalDetailsDTO.getSalary());
             professionalDetail.setUser(savedUserEntity);
             professionalDetails.add(professionalDetail);
         }
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService {
         userProfile.setNationality(requestDTO.getUserProfile().getNationality());
         // assigning user_id to userProfile Entity
         userProfile.setUser(savedUserEntity);
-        //saving userprofile entiti with respective userId
+        //saving userprofile entity with respective userId
         UserProfile savedUserProfileEntity = userProfileRepository.save(userProfile);
 
         Set<Address> addresses = new HashSet<>();
@@ -161,6 +162,7 @@ public class UserServiceImpl implements UserService {
             professionalDetailsDTO.setCompanyName(professionalDetail.getCompanyName());
             professionalDetailsDTO.setLocation(professionalDetail.getLocation());
             professionalDetailsDTO.setIsActive(professionalDetail.getIsActive());
+            professionalDetailsDTO.setSalary(professionalDetail.getSalary());
             professionalDetailsDTOS.add(professionalDetailsDTO);
         }
         responseDTO.setProficinalDetailsDTOs(professionalDetailsDTOS);
@@ -218,6 +220,7 @@ public class UserServiceImpl implements UserService {
             professionalDetailsDTO.setLocation(professionalDetail.getLocation());
             professionalDetailsDTO.setCompanyName(professionalDetail.getCompanyName());
             professionalDetailsDTO.setIsActive(professionalDetail.getIsActive());
+            professionalDetailsDTO.setSalary(professionalDetail.getSalary());
             professionalDetailsDTOS.add(professionalDetailsDTO);
         }
         responseDTO.setProficinalDetailsDTOs(professionalDetailsDTOS);
