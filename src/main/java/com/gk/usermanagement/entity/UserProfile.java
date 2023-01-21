@@ -1,6 +1,8 @@
 package com.gk.usermanagement.entity;
 
-import javax.persistence.Column;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Table
@@ -24,6 +27,13 @@ public class UserProfile {
     private float weight;
     private float height;
 
+    private Long createdBy;
+    private Long modifiedBy;
+    @CreationTimestamp
+    private Timestamp createdOn;
+    @UpdateTimestamp
+    private Timestamp updatedOn;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -31,7 +41,7 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String prefix, String firstName, String lastName, Long dob, String gender, String nationality, float weight, float height, User user) {
+    public UserProfile(Long id, String prefix, String firstName, String lastName, Long dob, String gender, String nationality, float weight, float height, Long createdBy, Long modifiedBy, Timestamp createdOn, Timestamp updatedOn, User user) {
         this.id = id;
         this.prefix = prefix;
         this.firstName = firstName;
@@ -41,6 +51,10 @@ public class UserProfile {
         this.nationality = nationality;
         this.weight = weight;
         this.height = height;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.user = user;
     }
 
@@ -122,5 +136,37 @@ public class UserProfile {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Timestamp getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Timestamp updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

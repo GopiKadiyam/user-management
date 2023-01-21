@@ -1,6 +1,10 @@
 package com.gk.usermanagement.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -10,9 +14,17 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String passWord;
+    private String password;
     private Long phoneNumber;
     private String gmail;
+    private String userType;
+
+    private Long createdBy;
+    private Long modifiedBy;
+    @CreationTimestamp
+    private Timestamp createdOn;
+    @UpdateTimestamp
+    private Timestamp updatedOn;
 
     @OneToOne(mappedBy = "user")
     private UserProfile userProfile;
@@ -26,11 +38,16 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String passWord, Long phoneNumber, String gmail, UserProfile userProfile, Set<Address> addresses, List<ProfessionalDetail> professionalDetails) {
+    public User(Long id, String password, Long phoneNumber, String gmail, String userType, Long createdBy, Long modifiedBy, Timestamp createdOn, Timestamp updatedOn, UserProfile userProfile, Set<Address> addresses, List<ProfessionalDetail> professionalDetails) {
         this.id = id;
-        this.passWord = passWord;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.gmail = gmail;
+        this.userType = userType;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.userProfile = userProfile;
         this.addresses = addresses;
         this.professionalDetails = professionalDetails;
@@ -44,12 +61,12 @@ public class User {
         this.id = id;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getPhoneNumber() {
@@ -90,5 +107,45 @@ public class User {
 
     public void setProfessionalDetails(List<ProfessionalDetail> professionalDetails) {
         this.professionalDetails = professionalDetails;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Timestamp getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Timestamp updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

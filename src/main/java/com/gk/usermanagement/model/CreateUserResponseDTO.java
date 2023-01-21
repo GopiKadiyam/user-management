@@ -7,6 +7,7 @@ public class CreateUserResponseDTO {
     private Long phoneNumber;
     private String gmail;
     private String passWord;
+    private String userType;
     private UserProfileDTO userProfile;
     private List<ProfessionalDetailsDTO> professionalDetailsDTOS;
     private List<AddressDTO> addresses;
@@ -14,11 +15,12 @@ public class CreateUserResponseDTO {
     public CreateUserResponseDTO() {
     }
 
-    public CreateUserResponseDTO(Long user_id, Long phoneNumber, String gmail, String passWord, UserProfileDTO userProfile, List<ProfessionalDetailsDTO> professionalDetailsDTOS, List<AddressDTO> addresses) {
+    public CreateUserResponseDTO(Long user_id, Long phoneNumber, String gmail, String passWord, UserProfileDTO userProfile, List<ProfessionalDetailsDTO> professionalDetailsDTOS, List<AddressDTO> addresses,String userType) {
         this.user_id = user_id;
         this.phoneNumber = phoneNumber;
         this.gmail = gmail;
         this.passWord = passWord;
+        this.userType=userType;
         this.userProfile = userProfile;
         this.professionalDetailsDTOS = professionalDetailsDTOS;
         this.addresses = addresses;
@@ -78,5 +80,13 @@ public class CreateUserResponseDTO {
 
     public void setAddresses(List<AddressDTO> addresses) {
         this.addresses = addresses;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     public CreateUserResponseDTO createUserWithProfile(CreateUserRequestDTO requestDTO) {
         // create user entity
         User user = new User();
-        user.setPassWord(requestDTO.getPassWord());
+        user.setPassword(requestDTO.getPassWord());
         user.setGmail(requestDTO.getGmail());
         user.setPhoneNumber(requestDTO.getPhoneNumber());
         //saving user entity
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
         CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
         //mapping saveUserEntity details tooooooo  ResponseEntity ==> User
         responseDTO.setUser_id(savedUserEntity.getId());
-        responseDTO.setPassWord(savedUserEntity.getPassWord());
+        responseDTO.setPassWord(savedUserEntity.getPassword());
         responseDTO.setGmail(savedUserEntity.getGmail());
         responseDTO.setPhoneNumber(savedUserEntity.getPhoneNumber());
 
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
         // setting model with entity data
         CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
         responseDTO.setUser_id(user.getId());
-        responseDTO.setPassWord(user.getPassWord());
+        responseDTO.setPassWord(user.getPassword());
         responseDTO.setGmail(user.getGmail());
         responseDTO.setPhoneNumber(user.getPhoneNumber());
 
