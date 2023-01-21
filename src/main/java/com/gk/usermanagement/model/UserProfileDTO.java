@@ -12,12 +12,11 @@ public class UserProfileDTO {
     private String nationality;
     private float weight;
     private float height;
-    private List<AddressDTO> addresses=new ArrayList<>();
 
     public UserProfileDTO() {
     }
 
-    public UserProfileDTO(String prefix, String firstName, String lastName, Long dob, String gender, String nationality, float weight, float height, List<AddressDTO> addresses) {
+    public UserProfileDTO(String prefix, String firstName, String lastName, Long dob, String gender, String nationality, float weight, float height) {
         this.prefix = prefix;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,7 +25,6 @@ public class UserProfileDTO {
         this.nationality = nationality;
         this.weight = weight;
         this.height = height;
-        this.addresses = addresses;
     }
 
     public String getPrefix() {
@@ -91,13 +89,5 @@ public class UserProfileDTO {
 
     public void setHeight(float height) {
         this.height = height;
-    }
-
-    public List<AddressDTO> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<AddressDTO> addresses) {
-        this.addresses = addresses;
     }
 }

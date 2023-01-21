@@ -1,14 +1,22 @@
 package com.gk.usermanagement.entity;
 
-import javax.persistence.*;
-import java.util.Set;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Table
 public class UserProfile {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "userProfile_id")
     private Long id;
     private String prefix;
     private String firstName;
@@ -19,8 +27,12 @@ public class UserProfile {
     private float weight;
     private float height;
 
-    @OneToMany(mappedBy = "userProfile",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Address> addresses;
+    private Long createdBy;
+    private Long modifiedBy;
+    @CreationTimestamp
+    private Timestamp createdOn;
+    @UpdateTimestamp
+    private Timestamp updatedOn;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -29,7 +41,7 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String prefix, String firstName, String lastName, Long dob, String gender, String nationality, float weight, float height, Set<Address> addresses, User user) {
+    public UserProfile(Long id, String prefix, String firstName, String lastName, Long dob, String gender, String nationality, float weight, float height, Long createdBy, Long modifiedBy, Timestamp createdOn, Timestamp updatedOn, User user) {
         this.id = id;
         this.prefix = prefix;
         this.firstName = firstName;
@@ -39,7 +51,10 @@ public class UserProfile {
         this.nationality = nationality;
         this.weight = weight;
         this.height = height;
-        this.addresses = addresses;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.user = user;
     }
 
@@ -115,19 +130,43 @@ public class UserProfile {
         this.height = height;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Timestamp getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Timestamp updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

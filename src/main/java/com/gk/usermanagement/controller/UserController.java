@@ -15,22 +15,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /*@PostMapping
-    public CreateUserResponseDTO createUser(@RequestBody CreateUserRequestDTO createUserRequestDTO){
-        return userService.createUser(createUserRequestDTO);
-    }
-
-    @GetMapping("/{id}")
-    public CreateUserResponseDTO getUser(@PathVariable("id") Long id){
-        return userService.getUser(id);
-    }*/
-
     @PostMapping
-    public CreateUserResponseDTO createUserWithProfile(@RequestBody CreateUserRequestDTO requestDTO){
+    public CreateUserResponseDTO createUser(@RequestBody CreateUserRequestDTO requestDTO){
         return userService.createUserWithProfile(requestDTO);
     }
-    @GetMapping("/profile/{id}")
-    public CreateUserResponseDTO getUserWithProfile(@PathVariable("id") Long id){
+    @GetMapping("/{id}")
+    public CreateUserResponseDTO getUser(@PathVariable("id") Long id){
         return userService.getUserWithProfile(id);
     }
 }

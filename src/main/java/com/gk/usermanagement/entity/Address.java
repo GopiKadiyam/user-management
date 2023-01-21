@@ -1,14 +1,17 @@
 package com.gk.usermanagement.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "address")
 public class Address {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "address_id")
-    private Long addressId;
+    private Long id;
     private String type;
     private String line1;
     private String line2;
@@ -17,32 +20,42 @@ public class Address {
     private String country;
     private Long pinCode;
 
+    private Long createdBy;
+    private Long modifiedBy;
+    @CreationTimestamp
+    private Timestamp createdOn;
+    @UpdateTimestamp
+    private Timestamp updatedOn;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_profile_id")
-    private UserProfile userProfile;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Address() {
     }
 
-    public Address(Long addressId, String type, String line1, String line2, String city, String state, String country, Long pinCode, UserProfile userProfile) {
-        this.addressId = addressId;
+    public Address(Long id, String type, String line1, String line2, String city, String state, String country, Long pinCode, Long createdBy, Long modifiedBy, Timestamp createdOn, Timestamp updatedOn, User user) {
+        this.id = id;
         this.type = type;
-
         this.line1 = line1;
         this.line2 = line2;
         this.city = city;
         this.state = state;
         this.country = country;
         this.pinCode = pinCode;
-        this.userProfile = userProfile;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
+        this.user = user;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -101,11 +114,43 @@ public class Address {
         this.pinCode = pinCode;
     }
 
-    public UserProfile getUserProfile() {
-        return userProfile;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Timestamp getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Timestamp updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

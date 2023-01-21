@@ -6,16 +6,18 @@ public class ProfessionalDetailsDTO {
     private String companyName;
     private String location;
     private String isActive;
+    private Long salary;
 
     public ProfessionalDetailsDTO() {
     }
 
-    public ProfessionalDetailsDTO(String employeeCode, Integer blockNumber, String companyName, String location, String isActive) {
+    public ProfessionalDetailsDTO(String employeeCode, Integer blockNumber, String companyName, String location, String isActive,Long salary) {
         this.employeeCode = employeeCode;
         this.blockNumber = blockNumber;
         this.companyName = companyName;
         this.location = location;
         this.isActive = isActive;
+        this.salary=salary;
     }
 
     public String getEmployeeCode() {
@@ -56,5 +58,13 @@ public class ProfessionalDetailsDTO {
 
     public void setIsActive(String isActive) {
         this.isActive = isActive;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
     }
 }

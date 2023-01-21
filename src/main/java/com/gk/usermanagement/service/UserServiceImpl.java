@@ -22,68 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserProfileRepository userProfileRepository;
-
-    /*@Override
-    public CreateUserResponseDTO createUser(CreateUserRequestDTO createUserRequestDTO) {
-
-        *//*Address address=new Address();
-        address.setLine1(createUserRequestDTO.getAddress().getLine1());
-        address.setLine2(createUserRequestDTO.getAddress().getLine2());
-
-        Address savedAdrees=addressRepository.save(address);*//*
-
-
-        User user=new User();
-        user.setFirstName(createUserRequestDTO.getFirstName());
-        user.setLastName(createUserRequestDTO.getLastName());
-        user.setGmail(createUserRequestDTO.getGmail());
-        user.setPhoneNumber(createUserRequestDTO.getPhoneNumber());
-
-        com.gk.usermanagement.model.Address modelAddress=new com.gk.usermanagement.model.Address();
-        modelAddress=createUserRequestDTO.getAddress();
-        Address address=new Address();
-        address.setLine1(createUserRequestDTO.getAddress().getLine1());
-        address.setLine2(createUserRequestDTO.getAddress().getLine2());
-        address.setCity(createUserRequestDTO.getAddress().getCity());
-        address.setState(createUserRequestDTO.getAddress().getState());
-        address.setCountry(createUserRequestDTO.getAddress().getCountry());
-        address.setPinCode(createUserRequestDTO.getAddress().getPinCode());
-
-        user.setAddress(address);
-        User savedEntity=userRepository.save(user);
-
-
-        return null;
-    }*/
-
-
-    //@Override
-    /*public CreateUserResponseDTO getUser(Long id) {
-        Optional<User> optionalUser=userRepository.findById(id);
-        User user=null;
-        if(optionalUser.isEmpty()){
-            throw new RuntimeException(" given id is not available");
-        }
-        else{
-            user= optionalUser.get();
-        }
-        CreateUserResponseDTO responseDTO=new CreateUserResponseDTO();
-        responseDTO.setUser_id(user.getUserId());
-        responseDTO.setFirstName(user.getFirstName());
-        responseDTO.setLastName(user.getLastName());
-        responseDTO.setGmail(user.getGmail());
-        responseDTO.setPhoneNumber(user.getPhoneNumber());
-        com.gk.usermanagement.model.Address address=new com.gk.usermanagement.model.Address();
-        address.setLine1(user.getAddress().getLine1());
-        address.setLine2(user.getAddress().getLine2());
-        address.setCity(user.getAddress().getCity());
-        address.setState(user.getAddress().getState());
-        address.setCountry(user.getAddress().getCountry());
-        address.setPinCode(user.getAddress().getPinCode());
-        responseDTO.setAddress(address);
-        return responseDTO;
-    }*/
-
     @Autowired
     private AddressRepository addressRepository;
     @Autowired
@@ -93,11 +31,13 @@ public class UserServiceImpl implements UserService {
     public CreateUserResponseDTO createUserWithProfile(CreateUserRequestDTO requestDTO) {
         // create user entity
         User user = new User();
-        user.setPassWord(requestDTO.getPassWord());
+        user.setPassword(requestDTO.getPassWord());
         user.setGmail(requestDTO.getGmail());
         user.setPhoneNumber(requestDTO.getPhoneNumber());
         //saving user entity
         User savedUserEntity=userRepository.save(user);
+
+        //save professionaldetails to db
         List<ProfessionalDetail> professionalDetails=new ArrayList<>();
         for(ProfessionalDetailsDTO professionalDetailsDTO :requestDTO.getProfessionalDetailsDTOS()){
             ProfessionalDetail professionalDetail=new ProfessionalDetail();
@@ -106,6 +46,7 @@ public class UserServiceImpl implements UserService {
             professionalDetail.setCompanyName(professionalDetailsDTO.getCompanyName());
             professionalDetail.setLocation(professionalDetailsDTO.getLocation());
             professionalDetail.setIsActive(professionalDetailsDTO.getIsActive());
+            professionalDetail.setSalary(professionalDetailsDTO.getSalary());
             professionalDetail.setUser(savedUserEntity);
             professionalDetails.add(professionalDetail);
         }
@@ -123,11 +64,11 @@ public class UserServiceImpl implements UserService {
         userProfile.setNationality(requestDTO.getUserProfile().getNationality());
         // assigning user_id to userProfile Entity
         userProfile.setUser(savedUserEntity);
-        //saving userprofile entiti with respective userId
+        //saving userprofile entity with respective userId
         UserProfile savedUserProfileEntity = userProfileRepository.save(userProfile);
 
         Set<Address> addresses = new HashSet<>();
-        for (AddressDTO addressDTO : requestDTO.getUserProfile().getAddresses()) {
+        for (AddressDTO addressDTO : requestDTO.getAddresses()) {
             // creating address entity
             Address address = new Address();
             address.setType(addressDTO.getType());
@@ -138,18 +79,18 @@ public class UserServiceImpl implements UserService {
             address.setCountry(addressDTO.getCountry());
             address.setPinCode(addressDTO.getPinCode());
             //setting userProfile against address entity
-            address.setUserProfile(savedUserProfileEntity);
+            address.setUser(savedUserEntity);
             addresses.add(address);
         }
         // saving address entities with userEntity
         List<Address> savedAddressEntity = addressRepository.saveAll(addresses);
 
-        // mapping saveUserEntity and savedAddressEntity to ResponseDTO
+        // mapping entities to ResponseDTO
 
         CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
         //mapping saveUserEntity details tooooooo  ResponseEntity ==> User
-        responseDTO.setUser_id(savedUserEntity.getUserId());
-        responseDTO.setPassWord(savedUserEntity.getPassWord());
+        responseDTO.setUser_id(savedUserEntity.getId());
+        responseDTO.setPassWord(savedUserEntity.getPassword());
         responseDTO.setGmail(savedUserEntity.getGmail());
         responseDTO.setPhoneNumber(savedUserEntity.getPhoneNumber());
 
@@ -161,9 +102,10 @@ public class UserServiceImpl implements UserService {
             professionalDetailsDTO.setCompanyName(professionalDetail.getCompanyName());
             professionalDetailsDTO.setLocation(professionalDetail.getLocation());
             professionalDetailsDTO.setIsActive(professionalDetail.getIsActive());
+            professionalDetailsDTO.setSalary(professionalDetail.getSalary());
             professionalDetailsDTOS.add(professionalDetailsDTO);
         }
-        responseDTO.setProficinalDetailsDTOs(professionalDetailsDTOS);
+        responseDTO.setProfessionalDetailsDTOS(professionalDetailsDTOS);
 
         //mapping savedUserProfileEntity details tooooo ResponseEntity ==> userProfileDTO
         UserProfileDTO userProfileDTO = new UserProfileDTO();
@@ -188,7 +130,7 @@ public class UserServiceImpl implements UserService {
             addressDTO.setPinCode(address.getPinCode());
             addressDTOList.add(addressDTO);
         }
-        userProfileDTO.setAddresses(addressDTOList);
+        responseDTO.setAddresses(addressDTOList);
         responseDTO.setUserProfile(userProfileDTO);
 
         return responseDTO;
@@ -205,8 +147,8 @@ public class UserServiceImpl implements UserService {
         }
         // setting model with entity data
         CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
-        responseDTO.setUser_id(user.getUserId());
-        responseDTO.setPassWord(user.getPassWord());
+        responseDTO.setUser_id(user.getId());
+        responseDTO.setPassWord(user.getPassword());
         responseDTO.setGmail(user.getGmail());
         responseDTO.setPhoneNumber(user.getPhoneNumber());
 
@@ -218,9 +160,10 @@ public class UserServiceImpl implements UserService {
             professionalDetailsDTO.setLocation(professionalDetail.getLocation());
             professionalDetailsDTO.setCompanyName(professionalDetail.getCompanyName());
             professionalDetailsDTO.setIsActive(professionalDetail.getIsActive());
+            professionalDetailsDTO.setSalary(professionalDetail.getSalary());
             professionalDetailsDTOS.add(professionalDetailsDTO);
         }
-        responseDTO.setProficinalDetailsDTOs(professionalDetailsDTOS);
+        responseDTO.setProfessionalDetailsDTOS(professionalDetailsDTOS);
         UserProfileDTO userProfileDTO = new UserProfileDTO();
         userProfileDTO.setFirstName(user.getUserProfile().getFirstName());
         userProfileDTO.setLastName(user.getUserProfile().getLastName());
@@ -232,7 +175,7 @@ public class UserServiceImpl implements UserService {
         userProfileDTO.setNationality(user.getUserProfile().getNationality());
 
         List<AddressDTO> addressDTOList = new ArrayList<>();
-        for (Address address : user.getUserProfile().getAddresses()) {
+        for (Address address : user.getAddresses()) {
             AddressDTO addressDTO = new AddressDTO();
             addressDTO.setType(address.getType());
             addressDTO.setLine1(address.getLine1());
@@ -243,7 +186,7 @@ public class UserServiceImpl implements UserService {
             addressDTO.setPinCode(address.getPinCode());
             addressDTOList.add(addressDTO);
         }
-        userProfileDTO.getAddresses().addAll(addressDTOList);
+        responseDTO.setAddresses(addressDTOList);
         responseDTO.setUserProfile(userProfileDTO);
         return responseDTO;
     }
